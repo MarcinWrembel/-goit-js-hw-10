@@ -16,10 +16,18 @@ function showCountryFlagName(data) {
   const countryDescription = document.createElement('span');
   countryDescription.classList.add('country-list__description');
   countryDescription.textContent = data.name.official;
+  countryDescription.setAttribute(
+    'title',
+    'click on country name or flag and key in "space" to get result'
+  );
 
   const countryFlag = document.createElement('img');
   countryFlag.classList.add('country-list__flag');
   countryFlag.setAttribute('src', data.flags.svg);
+  countryFlag.setAttribute(
+    'title',
+    'click on country name or flag and key in "space" to get result'
+  );
 
   countryList.appendChild(newListElement);
   newListElement.append(countryFlag, countryDescription);
@@ -40,7 +48,7 @@ function showCountryData(obj) {
     countryContainer.appendChild(insertHeaderData);
     insertHeaderData.textContent = `${key}:`;
     insertHeaderData.appendChild(insertHeaderDetails);
-    insertHeaderDetails.textContent = Object.values(obj[key]);
+    insertHeaderDetails.textContent = Object.values(obj[key]).join(', ');
 
     if (!isNaN(obj[key])) {
       insertHeaderDetails.textContent = obj[key].toLocaleString();
@@ -63,18 +71,36 @@ function checkMatches(data) {
   }
 }
 
-entryCountry.addEventListener('input', debounce(() => {
-  countryList.replaceChildren();
-  countryContainer.replaceChildren();
+entryCountry.addEventListener(
+  'input',
+  debounce(() => {
+    countryList.replaceChildren();
 
-  let countryName = entryCountry.value;
+    if (countryContainer.hasChildNodes()) {
+      countryContainer.replaceChildren();
+    }
 
-  fetchCountries(countryName)
-    .then(data => {
-      checkMatches(data);
-    })
-    .catch(err => {
-      Notiflix.Notify.failure('Oops, there is no country with that name');
-      console.log(err);
-    });
-},300));
+    let countryName = entryCountry.value.trim();
+    fetchCountries(countryName)
+      .then(data => {
+        checkMatches(data);
+      })
+      .catch(err => {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+        // console.log(err);
+      });
+  }, 300)
+);
+
+document.body.addEventListener('click', e => {
+  if (
+    e.target.className !== 'country-list__description' &&
+    e.target.className !== 'country-list__flag'
+  ) {
+    return;
+  }
+  if (countryList.childElementCount > 1) {
+    entryCountry.value = e.target.textContent;
+    entryCountry.focus();
+  }
+});

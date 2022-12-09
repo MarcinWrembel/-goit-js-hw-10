@@ -9,30 +9,35 @@ const countryList = document.querySelector('ul.country-list');
 const countryContainer = document.querySelector('div.country-info');
 
 function showCountryFlagName(data) {
+  // console.log(data);
   const newListElement = document.createElement('li');
   newListElement.classList.add('country-list__item');
 
   const countryDescription = document.createElement('span');
   countryDescription.classList.add('country-list__description');
   countryDescription.textContent = data.name.official;
+  countryDescription.setAttribute(
+    'title',
+    'click on country name or flag and key in "space" to get result'
+  );
 
   const countryFlag = document.createElement('img');
   countryFlag.classList.add('country-list__flag');
   countryFlag.setAttribute('src', data.flags.svg);
+  countryFlag.setAttribute(
+    'title',
+    'click on country name or flag and key in "space" to get result'
+  );
 
   countryList.appendChild(newListElement);
   newListElement.append(countryFlag, countryDescription);
-
-  createSvg(newListElement);
 }
 
-function showCountryData(obj, targetPlace) {
-  //create an array from keys for detailed country data
+function showCountryData(obj) {
   const keys = Object.keys(obj).filter(
     key => key === 'capital' || key === 'population' || key === 'languages'
   );
 
-  //create details of country for every key -> obj keys
   for (const key of keys) {
     const insertHeaderData = document.createElement('p');
     insertHeaderData.classList.add('country-info__heading');
@@ -40,8 +45,7 @@ function showCountryData(obj, targetPlace) {
     const insertHeaderDetails = document.createElement('span');
     insertHeaderDetails.classList.add('country-info__details');
 
-    targetPlace.appendChild(insertHeaderData);
-
+    countryContainer.appendChild(insertHeaderData);
     insertHeaderData.textContent = `${key}:`;
     insertHeaderData.appendChild(insertHeaderDetails);
     insertHeaderDetails.textContent = Object.values(obj[key]).join(', ');
@@ -63,39 +67,8 @@ function checkMatches(data) {
     });
   } else {
     showCountryFlagName(...data);
-    showCountryData(...data, countryContainer);
+    showCountryData(...data);
   }
-}
-
-function showUnfold(el) {
-  //el as HTML created element
-  el.classList.add('country-list__description--unfold');
-  const detailsElements = Array.from(el.children);
-
-  detailsElements.forEach(e => {
-    e.classList.add('country-info__heading--unfold');
-  });
-}
-
-function createSvg(el) {
-  const svgElements = ['up2', 'down3'];
-  const xlinks = 'http://www.w3.org/1999/xlink';
-  const nameSpace = 'http://www.w3.org/2000/svg';
-
-  svgElements.forEach(e => {
-    const newSvg = document.createElementNS(nameSpace, 'svg');
-    const use = document.createElementNS(nameSpace, 'use');
-
-    newSvg.classList.add('country-list__svg');
-
-    use.setAttributeNS(xlinks, 'xlink:href', `./img/icons.svg#up2`);
-    use.setAttribute('width', '18');
-    use.setAttribute('height', '18');
-
-    el.appendChild(newSvg);
-    newSvg.appendChild(use);
-
-  });
 }
 
 entryCountry.addEventListener(
@@ -121,28 +94,22 @@ entryCountry.addEventListener(
 );
 
 document.body.addEventListener('click', e => {
-  const childrenToRemove = Array.from(e.target.children);
-
-  if (!e.target.classList.contains('country-list__description')) {
+  if (
+    e.target.className !== 'country-list__description' &&
+    e.target.className !== 'country-list__flag'
+  ) {
     return;
   }
-
-  if (!e.target.classList.contains('country-list__description--unfold')) {
-    fetchCountries(e.target.textContent) //getting data from promise
-      .then(data => {
-        showCountryData(data[0], e.target);
-        showUnfold(e.target);
-      })
-      .catch(err => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        console.log(err);
-      });
-  }
-
-  if (e.target.classList.contains('country-list__description--unfold')) {
-    e.target.classList.toggle('country-list__description--unfold');
-    childrenToRemove.forEach(e => {
-      e.remove();
+  if (countryList.childElementCount > 1) {
+    entryCountry.value = e.target.textContent;
+    entryCountry.focus();
+    fetchCountries(entryCountry.value)
+    .then(data => {
+      checkMatches(data);
+    })
+    .catch(err => {
+      Notiflix.Notify.failure('Oops, there is no country with that name');
+      // console.log(err);
     });
   }
 });

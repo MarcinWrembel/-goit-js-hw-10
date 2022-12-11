@@ -80,17 +80,6 @@ body {
   /* position: relative; */
 }
 
-/*
-.country-list__item::before {
-  position: absolute;
-  content: '';
-  right: -40px;
-  width: 10px;
-  height: 5px;
-  background: #2196f3;
-  color: red;
-}
-*/
 
 .country-info__heading {
   text-transform: capitalize;
@@ -115,11 +104,9 @@ body {
   color: #0b05627c;
 }
 
-.country-list__svg {
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  fill: black;
-  stroke:black;
-  border: 1px solid black;
+.fa-solid {
+  font-size: 16px;
+  margin-left: 10px;
+  color:#808080;
+
 }

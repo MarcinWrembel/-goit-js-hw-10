@@ -23,7 +23,8 @@ function showCountryFlagName(data) {
   countryList.appendChild(newListElement);
   newListElement.append(countryFlag, countryDescription);
 
-  createSvg(newListElement);
+  // createSvg(newListElement);
+  createIcon(countryDescription);
 }
 
 function showCountryData(obj, targetPlace) {
@@ -44,14 +45,17 @@ function showCountryData(obj, targetPlace) {
 
     insertHeaderData.textContent = `${key}:`;
     insertHeaderData.appendChild(insertHeaderDetails);
+    //insert values to country data details -> for each object
     insertHeaderDetails.textContent = Object.values(obj[key]).join(', ');
 
+    //insert value to country data details if value is not an object
     if (!isNaN(obj[key])) {
       insertHeaderDetails.textContent = obj[key].toLocaleString();
     }
   }
 }
 
+//function which checks the number of hits and then creates data or shows notification
 function checkMatches(data) {
   if (data.length > 10) {
     return Notiflix.Notify.info(
@@ -62,11 +66,15 @@ function checkMatches(data) {
       showCountryFlagName(element);
     });
   } else {
+    //destructurisation of array ob objects (could be also data[0])
     showCountryFlagName(...data);
     showCountryData(...data, countryContainer);
+
+    document.querySelector('i').removeAttribute('class');
   }
 }
 
+//if number of hist is >1 and <11 then create country data details -> invoked by click'ing an country description or arrow
 function showUnfold(el) {
   //el as HTML created element
   el.classList.add('country-list__description--unfold');
@@ -77,26 +85,32 @@ function showUnfold(el) {
   });
 }
 
-function createSvg(el) {
-  const svgElements = ['up2', 'down3'];
-  const xlinks = 'http://www.w3.org/1999/xlink';
-  const nameSpace = 'http://www.w3.org/2000/svg';
-
-  svgElements.forEach(e => {
-    const newSvg = document.createElementNS(nameSpace, 'svg');
-    const use = document.createElementNS(nameSpace, 'use');
-
-    newSvg.classList.add('country-list__svg');
-
-    use.setAttributeNS(xlinks, 'xlink:href', `./img/icons.svg#up2`);
-    use.setAttribute('width', '18');
-    use.setAttribute('height', '18');
-
-    el.appendChild(newSvg);
-    newSvg.appendChild(use);
-
-  });
+//creates an icon to unfold/fold tree with country details
+function createIcon(el) {
+  const textIcon = document.createElement('i');
+  textIcon.classList.add('fa-solid', 'fa-angle-down');
+  el.appendChild(textIcon);
 }
+
+// function createSvg(el) {
+//   const svgElements = ['up2', 'down3'];
+//   const xlinks = 'http://www.w3.org/1999/xlink';
+//   const nameSpace = 'http://www.w3.org/2000/svg';
+
+//   svgElements.forEach(e => {
+//     const newSvg = document.createElementNS(nameSpace, 'svg');
+//     const use = document.createElementNS(nameSpace, 'use');
+
+//     newSvg.classList.add('country-list__svg');
+
+//     use.setAttributeNS(xlinks, 'xlink:href', `./img/icons.svg#up2`);
+//     use.setAttribute('width', '18');
+//     use.setAttribute('height', '18');
+
+//     el.appendChild(newSvg);
+//     newSvg.appendChild(use);
+//   });
+// }
 
 entryCountry.addEventListener(
   'input',
@@ -117,32 +131,54 @@ entryCountry.addEventListener(
         Notiflix.Notify.failure('Oops, there is no country with that name');
         // console.log(err);
       });
-  }, 300)
+  }, DEBOUNCE_DELAY)
 );
 
 document.body.addEventListener('click', e => {
   const childrenToRemove = Array.from(e.target.children);
+  const iconElement = document.querySelector('i');
+  // const dataToAdd = document.getElementsByClassName(
+  //   'country-list__description'
+  // );
+  // console.log(dataToAdd);
 
-  if (!e.target.classList.contains('country-list__description')) {
+  if (
+    !e.target.classList.contains('country-list__description') &&
+    !e.target.classList.contains('fa-solid')
+  ) {
     return;
   }
 
-  if (!e.target.classList.contains('country-list__description--unfold')) {
+  if (
+    (!e.target.classList.contains('country-list__description--unfold') &&
+      countryList.childElementCount > 1) ||
+    e.target.classList.contains('fa-solid')
+  ) {
+    let targetDataCreation = e.target;
+
+    if (targetDataCreation.tagName === 'I') {
+      targetDataCreation = e.target.parentNode;
+    }
+
     fetchCountries(e.target.textContent) //getting data from promise
       .then(data => {
-        showCountryData(data[0], e.target);
-        showUnfold(e.target);
-      })
-      .catch(err => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        console.log(err);
+
+        showCountryData(data[0], targetDataCreation);
+        showUnfold(targetDataCreation);
       });
+
+    iconElement.classList.add('fa-rotate-180');
   }
 
   if (e.target.classList.contains('country-list__description--unfold')) {
     e.target.classList.toggle('country-list__description--unfold');
-    childrenToRemove.forEach(e => {
-      e.remove();
+
+    iconElement.classList.remove('fa-rotate-180');
+    //clear node
+    childrenToRemove.forEach(el => {
+      if (el.tagName !== 'I') {
+        el.remove();
+      }
     });
   }
 });

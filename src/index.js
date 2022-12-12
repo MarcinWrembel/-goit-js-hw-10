@@ -3,7 +3,6 @@ import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './JS/fetchCountries';
 
-
 const DEBOUNCE_DELAY = 300;
 const entryCountry = document.querySelector('#search-box');
 const countryList = document.querySelector('ul.country-list');
@@ -71,6 +70,10 @@ function checkMatches(data) {
     showCountryData(...data, countryContainer);
 
     document.querySelector('i').removeAttribute('class');
+
+    if ((countryList.childElementCount = 1)) {
+      countryList.firstElementChild.style.cursor = 'auto';
+    }
   }
 }
 
@@ -119,7 +122,10 @@ document.body.addEventListener('click', e => {
     return;
   }
 
-  if (!e.target.classList.contains('country-list__description--unfold')) {
+  if (
+    !e.target.classList.contains('country-list__description--unfold') &&
+    countryList.childElementCount > 1
+  ) {
     fetchCountries(e.target.textContent) //getting data from promise
       .then(data => {
         showCountryData(data[0], e.target);

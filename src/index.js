@@ -24,7 +24,8 @@ function showCountryFlagName(data) {
   newListElement.append(countryFlag, countryDescription);
 
   // createSvg(newListElement);
-  createIcon(countryDescription);
+  // createIcon(countryDescription);
+  createIcon(newListElement);
 }
 
 function showCountryData(obj, targetPlace) {
@@ -131,55 +132,36 @@ entryCountry.addEventListener(
 );
 
 document.body.addEventListener('click', e => {
-  const childrenToRemove = Array.from(e.target.children);
-  const iconElement = document.querySelector('i');
+  const ListChildrenArr = Array.from(e.target.children);
+  const iconElementIndex = ListChildrenArr.findIndex(e => e.tagName === 'I');
+  const childrenToRemove = ListChildrenArr.filter(e => e.tagName === 'P');
 
-  let targetDataCreation = e.target;
 
-  if (targetDataCreation.tagName === 'I') {
-    targetDataCreation = e.target.parentNode;
-  }
-
-  if (
-    !targetDataCreation.classList.contains('country-list__description') &&
-    !e.target.classList.contains('fa-solid')
-  ) {
+  if (!e.target.classList.contains('country-list__item')) {
     return;
   }
 
   if (
-    (!targetDataCreation.classList.contains(
-      'country-list__description--unfold'
-    ) &&
-      countryList.childElementCount > 1) ||
-    (targetDataCreation.classList.contains('fa-solid') &&
-      !targetDataCreation.classList.contains(
-        'country-list__description--unfold'
-      ))
+    !e.target.classList.contains('country-list__description--unfold') 
   ) {
-    fetchCountries(targetDataCreation.textContent) //getting data from promise
+    fetchCountries(e.target.textContent) //getting data from promise
       .then(data => {
-        showCountryData(data[0], targetDataCreation);
-        showUnfold(targetDataCreation);
+        showCountryData(data[0], e.target);
+        showUnfold(e.target);
       });
 
-    iconElement.classList.add('fa-rotate-180');
+    ListChildrenArr[iconElementIndex].classList.add('fa-angle-up');
+    ListChildrenArr[iconElementIndex].classList.remove('fa-angle-down');
   }
 
-  if (
-    targetDataCreation.classList.contains(
-      'country-list__description--unfold'
-    ) ||
-    e.target.classList.contains('fa-solid')
-  ) {
-    targetDataCreation.classList.toggle('country-list__description--unfold');
+  if (e.target.classList.contains('country-list__description--unfold')) {
+    e.target.classList.toggle('country-list__description--unfold');
 
-    iconElement.classList.remove('fa-rotate-180');
-    //clear node
+    ListChildrenArr[iconElementIndex].classList.add('fa-angle-down');
+    ListChildrenArr[iconElementIndex].classList.remove('fa-angle-up');
+
     childrenToRemove.forEach(el => {
-      if (el.tagName !== 'I') {
-        el.remove();
-      }
+      el.remove();
     });
   }
 });

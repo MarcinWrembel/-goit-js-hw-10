@@ -7,7 +7,7 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: #e6e9ed94;
   color: #212121;
   line-height: 1.5;
   display: flex;
@@ -65,35 +65,49 @@ body {
 .country-list__item {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  min-width: 320px;
   position: relative;
-
+  border-radius: 10px;
+  -webkit-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+  -moz-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+  box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+  cursor: pointer;
 }
 
 .country-list__flag {
-  margin-right: 20px;
+  margin: 10px 0 10px 0;
   width: 50px;
   border: 1px solid #808080;
-  cursor:auto;
+  cursor: auto;
 }
 
 .country-list__description {
   font-weight: 500;
   cursor: pointer;
-  /* position: relative; */
+  padding: 5px 20px 10px 20px;
+
 }
 
 .country-info__heading {
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 700;
+  margin: 0;
   color: #0b05626f;
+  cursor: none;
+  pointer-events: none;
+  display: block;
 }
 
 .country-info__details {
   padding-left: 10px;
+  padding-right: 10px;
   font-size: 16px;
   font-weight: 500;
   color: #212121;
+  cursor: none;
+  pointer-events: none;
 }
 
 .country-list__description--unfold {
@@ -105,6 +119,11 @@ body {
 
 .fa-solid {
   font-size: 16px;
-  margin-left: 10px;
+  margin-left: auto;
+  margin-right: 10px;
   color: #808080;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  pointer-events: none;
 }

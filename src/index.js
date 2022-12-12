@@ -8,6 +8,7 @@ const entryCountry = document.querySelector('#search-box');
 const countryList = document.querySelector('ul.country-list');
 const countryContainer = document.querySelector('div.country-info');
 
+
 function showCountryFlagName(data) {
   const newListElement = document.createElement('li');
   newListElement.classList.add('js-country-list__item');
@@ -129,7 +130,7 @@ document.body.addEventListener('click', e => {
     fetchCountries(e.target.textContent) //getting data from promise
       .then(data => {
         showCountryData(data[0], e.target);
-        
+
         e.target.classList.add('js-country-list__item--unfold');
       });
 

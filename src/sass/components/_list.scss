@@ -1,7 +1,10 @@
 .country-list {
+  max-width: 1200px;
   list-style: none;
   padding-left: 0;
   display: flex;
+  // flex-wrap: wrap;
+  // justify-content: center;
   flex-direction: column;
   gap: 10px;
 }
@@ -11,6 +14,7 @@
   align-items: center;
   text-align: center;
   flex-direction: column;
+  // flex-basis: calc((100% - 20px) / 2);
   min-width: 320px;
   max-width: 500px;
   position: relative;

@@ -1,5 +1,5 @@
 
-@use './utilities/variables' ;
+@use './utilities/variables' as * ;
 @use './components/general';
 @use './components/list';
 @use './components/fontAwesome';

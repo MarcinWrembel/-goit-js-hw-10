@@ -1,11 +1,11 @@
+
 .fa-solid {
-    font-size: 16px;
-    margin-left: auto;
-    margin-right: 10px;
-    color: #808080;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    pointer-events: none;
-  }
-  
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: 10px;
+  color: get-col('icon-awesome');
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  pointer-events: none;
+}

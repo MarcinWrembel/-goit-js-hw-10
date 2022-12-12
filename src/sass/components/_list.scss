@@ -57,9 +57,10 @@
   pointer-events: none;
 }
 
-.js-country-list__name--unfold {
+.js-country-list__item--unfold {
   font-weight: 700;
   font-size: 18px;
-  color: #0b0562bb;
+  // color: #0b0562bb;
+  color: get-col('country-name-unfold');
   cursor: pointer;
 }

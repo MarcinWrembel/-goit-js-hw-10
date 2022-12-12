@@ -79,10 +79,6 @@ function showUnfold(el) {
   //el as HTML created element
   el.classList.add('country-list__description--unfold');
   const detailsElements = Array.from(el.children);
-
-  detailsElements.forEach(e => {
-    e.classList.add('country-info__heading--unfold');
-  });
 }
 
 //creates an icon to unfold/fold tree with country details
@@ -137,32 +133,32 @@ entryCountry.addEventListener(
 document.body.addEventListener('click', e => {
   const childrenToRemove = Array.from(e.target.children);
   const iconElement = document.querySelector('i');
-  // const dataToAdd = document.getElementsByClassName(
-  //   'country-list__description'
-  // );
-  // console.log(dataToAdd);
+
+  let targetDataCreation = e.target;
+
+  if (targetDataCreation.tagName === 'I') {
+    targetDataCreation = e.target.parentNode;
+  }
 
   if (
-    !e.target.classList.contains('country-list__description') &&
+    !targetDataCreation.classList.contains('country-list__description') &&
     !e.target.classList.contains('fa-solid')
   ) {
     return;
   }
 
   if (
-    (!e.target.classList.contains('country-list__description--unfold') &&
+    (!targetDataCreation.classList.contains(
+      'country-list__description--unfold'
+    ) &&
       countryList.childElementCount > 1) ||
-    e.target.classList.contains('fa-solid')
+    (targetDataCreation.classList.contains('fa-solid') &&
+      !targetDataCreation.classList.contains(
+        'country-list__description--unfold'
+      ))
   ) {
-    let targetDataCreation = e.target;
-
-    if (targetDataCreation.tagName === 'I') {
-      targetDataCreation = e.target.parentNode;
-    }
-
-    fetchCountries(e.target.textContent) //getting data from promise
+    fetchCountries(targetDataCreation.textContent) //getting data from promise
       .then(data => {
-
         showCountryData(data[0], targetDataCreation);
         showUnfold(targetDataCreation);
       });
@@ -170,8 +166,13 @@ document.body.addEventListener('click', e => {
     iconElement.classList.add('fa-rotate-180');
   }
 
-  if (e.target.classList.contains('country-list__description--unfold')) {
-    e.target.classList.toggle('country-list__description--unfold');
+  if (
+    targetDataCreation.classList.contains(
+      'country-list__description--unfold'
+    ) ||
+    e.target.classList.contains('fa-solid')
+  ) {
+    targetDataCreation.classList.toggle('country-list__description--unfold');
 
     iconElement.classList.remove('fa-rotate-180');
     //clear node

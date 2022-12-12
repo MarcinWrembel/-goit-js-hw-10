@@ -3,6 +3,7 @@ import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './JS/fetchCountries';
 
+
 const DEBOUNCE_DELAY = 300;
 const entryCountry = document.querySelector('#search-box');
 const countryList = document.querySelector('ul.country-list');
@@ -23,8 +24,6 @@ function showCountryFlagName(data) {
   countryList.appendChild(newListElement);
   newListElement.append(countryFlag, countryDescription);
 
-  // createSvg(newListElement);
-  // createIcon(countryDescription);
   createIcon(newListElement);
 }
 
@@ -89,26 +88,6 @@ function createIcon(el) {
   el.appendChild(textIcon);
 }
 
-// function createSvg(el) {
-//   const svgElements = ['up2', 'down3'];
-//   const xlinks = 'http://www.w3.org/1999/xlink';
-//   const nameSpace = 'http://www.w3.org/2000/svg';
-
-//   svgElements.forEach(e => {
-//     const newSvg = document.createElementNS(nameSpace, 'svg');
-//     const use = document.createElementNS(nameSpace, 'use');
-
-//     newSvg.classList.add('country-list__svg');
-
-//     use.setAttributeNS(xlinks, 'xlink:href', `./img/icons.svg#up2`);
-//     use.setAttribute('width', '18');
-//     use.setAttribute('height', '18');
-
-//     el.appendChild(newSvg);
-//     newSvg.appendChild(use);
-//   });
-// }
-
 entryCountry.addEventListener(
   'input',
   debounce(() => {
@@ -136,14 +115,11 @@ document.body.addEventListener('click', e => {
   const iconElementIndex = ListChildrenArr.findIndex(e => e.tagName === 'I');
   const childrenToRemove = ListChildrenArr.filter(e => e.tagName === 'P');
 
-
   if (!e.target.classList.contains('country-list__item')) {
     return;
   }
 
-  if (
-    !e.target.classList.contains('country-list__description--unfold') 
-  ) {
+  if (!e.target.classList.contains('country-list__description--unfold')) {
     fetchCountries(e.target.textContent) //getting data from promise
       .then(data => {
         showCountryData(data[0], e.target);

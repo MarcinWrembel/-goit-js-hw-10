@@ -1,59 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #e6e9ed94;
-  color: #212121;
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.header {
-  font-size: 20px;
-}
-
-.search {
-  position: relative;
-  margin-bottom: 16px;
-}
-
-.search__box {
-  font: inherit;
-  padding: 8px 8px 8px 35px;
-  min-width: 320px;
-  outline: none;
-  border: 1px solid #808080;
-  border-radius: 10px;
-}
-
-.search__box:focus {
-  border: 2px solid #0da6d5e2;
-}
-
-.search__box:focus ~ .search__icon {
-  fill: #0da6d5e2;
-  rotate: 360deg;
-}
-
-.search__icon {
-  position: absolute;
-  display: block;
-  width: 20px;
-  height: 20px;
-  top: 11px;
-  left: 10px;
-  fill: #808080;
-  transform-origin: center;
-  transition: 1000ms rotate ease-in-out;
-}
-
 .country-list {
   list-style: none;
   padding-left: 0;
@@ -65,8 +9,10 @@ body {
 .js-country-list__item {
   display: flex;
   align-items: center;
+  text-align: center;
   flex-direction: column;
   min-width: 320px;
+  max-width: 500px;
   position: relative;
   border-radius: 10px;
   -webkit-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
@@ -88,7 +34,6 @@ body {
   cursor: pointer;
   pointer-events: none;
   padding: 5px 20px 10px 20px;
-
 }
 
 .js-country-list__heading {
@@ -112,21 +57,9 @@ body {
   pointer-events: none;
 }
 
-.js-country-list__item--unfold {
+.js-country-list__name--unfold {
   font-weight: 700;
   font-size: 18px;
   color: #0b0562bb;
   cursor: pointer;
 }
-
-.fa-solid {
-  font-size: 16px;
-  margin-left: auto;
-  margin-right: 10px;
-  color: #808080;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  pointer-events: none;
-}
-

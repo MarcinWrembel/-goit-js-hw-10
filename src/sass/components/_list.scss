@@ -18,16 +18,16 @@
     max-width: 500px;
     position: relative;
     border-radius: 10px;
-    -webkit-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
-    -moz-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
-    box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+    -webkit-box-shadow: -1px 11px 15px -11px getCol('list-item-shadow');
+    -moz-box-shadow: -1px 11px 15px -11px getCol('list-item-shadow');
+    box-shadow: -1px 11px 15px -11px getCol('list-item-shadow');
     cursor: pointer;
   }
 
   &__flag {
     margin: 10px 0 10px 0;
     width: 50px;
-    border: 1px solid #808080;
+    border: 1px solid getCol('flag-border');
     cursor: pointer;
     pointer-events: none;
   }
@@ -44,7 +44,7 @@
     font-size: 14px;
     font-weight: 700;
     margin: 0;
-    color: #0b05626f;
+    color: getCol('country-list-heading');
     cursor: none;
     pointer-events: none;
     display: block;
@@ -55,7 +55,7 @@
     padding-right: 10px;
     font-size: 16px;
     font-weight: 500;
-    color: #212121;
+    color: getCol('list-details');
     cursor: none;
     pointer-events: none;
   }

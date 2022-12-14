@@ -1,56 +1,55 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #e6e9ed94;
-    color: #212121;
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .header {
-    font-size: 20px;
-  }
-  
-  .search {
-    position: relative;
-    margin-bottom: 16px;
-    
-    &__box {
-        font: inherit;
-        padding: 8px 8px 8px 35px;
-        min-width: 320px;
-        outline: none;
-        border: 1px solid #808080;
-        border-radius: 10px;
-    }
-    
-    &__box:focus {
-        border: 2px solid #0da6d5e2;
-    }
-    
-    &__box:focus ~ .search__icon {
-        fill: #0da6d5e2;
-        rotate: 360deg;
-    }
-    
-    &__icon {
-        position: absolute;
-        display: block;
-        width: 20px;
-        height: 20px;
-        top: 11px;
-        left: 10px;
-        fill: #808080;
-        transform-origin: center;
-        transition: 1000ms rotate ease-in-out;
-    }
+  box-sizing: border-box;
 }
-    
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: getCol('body-background');
+  color: getCol('main-font');
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  font-size: 20px;
+}
+
+.search {
+  position: relative;
+  margin-bottom: 16px;
+
+  &__box {
+    font: inherit;
+    padding: 8px 8px 8px 35px;
+    min-width: 320px;
+    outline: none;
+    border: 1px solid getCol('searchbox-icon');
+    border-radius: 10px;
+  }
+
+  &__box:focus {
+    border: 2px solid getCol('searchbox-focus');
+  }
+
+  &__box:focus ~ .search__icon {
+    fill: getCol('searchbox-focus');
+    rotate: 360deg;
+  }
+
+  &__icon {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    top: 11px;
+    left: 10px;
+    fill: getCol('searchbox-icon');
+    transform-origin: center;
+    transition: 1000ms rotate ease-in-out;
+  }
+}

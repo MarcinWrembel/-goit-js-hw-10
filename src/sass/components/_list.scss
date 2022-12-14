@@ -7,64 +7,64 @@
   // justify-content: center;
   flex-direction: column;
   gap: 10px;
-}
 
-& .country-list__item {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-  // flex-basis: calc((100% - 20px) / 2);
-  min-width: 320px;
-  max-width: 500px;
-  position: relative;
-  border-radius: 10px;
-  -webkit-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
-  -moz-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
-  box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
-  cursor: pointer;
-}
+  &__item {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    // flex-basis: calc((100% - 20px) / 2);
+    min-width: 320px;
+    max-width: 500px;
+    position: relative;
+    border-radius: 10px;
+    -webkit-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+    -moz-box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+    box-shadow: -1px 11px 15px -11px rgba(66, 68, 90, 0.57);
+    cursor: pointer;
+  }
 
-& .country-list__flag {
-  margin: 10px 0 10px 0;
-  width: 50px;
-  border: 1px solid #808080;
-  cursor: pointer;
-  pointer-events: none;
-}
+  &__flag {
+    margin: 10px 0 10px 0;
+    width: 50px;
+    border: 1px solid #808080;
+    cursor: pointer;
+    pointer-events: none;
+  }
 
-& .country-list__name {
-  font-weight: 500;
-  cursor: pointer;
-  pointer-events: none;
-  padding: 5px 20px 10px 20px;
-}
+  &__name {
+    font-weight: 500;
+    cursor: pointer;
+    pointer-events: none;
+    padding: 5px 20px 10px 20px;
+  }
 
-& .country-list__heading {
-  text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 700;
-  margin: 0;
-  color: #0b05626f;
-  cursor: none;
-  pointer-events: none;
-  display: block;
-}
+  &__heading {
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    color: #0b05626f;
+    cursor: none;
+    pointer-events: none;
+    display: block;
+  }
 
-& .country-list__details {
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #212121;
-  cursor: none;
-  pointer-events: none;
-}
+  &__details {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+    cursor: none;
+    pointer-events: none;
+  }
 
-& .country-list__item--unfold {
-  font-weight: 700;
-  font-size: 18px;
-  // color: #0b0562bb;
-  color: get-col('country-name-unfold');
-  cursor: pointer;
+  &__item--unfold {
+    font-weight: 700;
+    font-size: 18px;
+    // color: #0b0562bb;
+    color: get-col('country-name-unfold');
+    cursor: pointer;
+  }
 }

@@ -9,7 +9,7 @@
   gap: 10px;
 }
 
-.js-country-list__item {
+& .country-list__item {
   display: flex;
   align-items: center;
   text-align: center;
@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.js-country-list__flag {
+& .country-list__flag {
   margin: 10px 0 10px 0;
   width: 50px;
   border: 1px solid #808080;
@@ -33,14 +33,14 @@
   pointer-events: none;
 }
 
-.js-country-list__name {
+& .country-list__name {
   font-weight: 500;
   cursor: pointer;
   pointer-events: none;
   padding: 5px 20px 10px 20px;
 }
 
-.js-country-list__heading {
+& .country-list__heading {
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 700;
@@ -51,7 +51,7 @@
   display: block;
 }
 
-.js-country-list__details {
+& .country-list__details {
   padding-left: 10px;
   padding-right: 10px;
   font-size: 16px;
@@ -61,7 +61,7 @@
   pointer-events: none;
 }
 
-.js-country-list__item--unfold {
+& .country-list__item--unfold {
   font-weight: 700;
   font-size: 18px;
   // color: #0b0562bb;
